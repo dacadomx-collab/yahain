@@ -1,0 +1,288 @@
+/* =============================================================================
+   assets/css/main.css — Yahain (público: Catálogo Exclusivo / Colección Privada)
+   Mobile-First | ARF-Grid (Adaptive Responsive Flex) | Modo Oscuro fluido
+   Mandamiento #1: nacer para celular, sin anchos fijos en contenedores.
+   Mandamiento #3: contraste mínimo WCAG 4.5:1.
+   Prohibido: !important, estilos inline.
+   ============================================================================= */
+
+:root {
+    /* Paleta Día — marfil / oro rosado (FODA specs: institucional, Bienes Raíces) */
+    --color-bg: #faf7f2;
+    --color-bg-alt: #f1ebe1;
+    --color-text: #2b2620;
+    --color-text-muted: #6b6255;
+    --color-primary: #2b2620;
+    --color-accent: #b08d57;
+    --color-accent-soft: #d9c4a3;
+    --color-border: #e3d9c8;
+
+    --font-serif: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+    --font-sans: "Montserrat", "Lato", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2.5rem;
+    --space-xl: 4rem;
+    --radius: 0.5rem;
+    --container-max: 1400px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Paleta Noche — ónix / oro clásico (FODA specs: Aeronaves, Arte, Relojes) */
+        --color-bg: #0a0a0c;
+        --color-bg-alt: #15151a;
+        --color-text: #f2f0eb;
+        --color-text-muted: #b7b2a6;
+        --color-primary: #f2f0eb;
+        --color-accent: #c9a86a;
+        --color-accent-soft: #8a733f;
+        --color-border: #2a2a30;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    margin: 0 0 var(--space-sm);
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ── CONTENEDOR MAESTRO: ancho fluido con tope vía variable nativa ───────── */
+.container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--space-md);
+}
+
+/* ── ARF-GRID (Adaptive Responsive Foundation): 100% responsivo, cero px fijos */
+.arf-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: var(--space-md);
+    width: 100%;
+    padding: var(--space-md);
+}
+
+.arf-grid > * {
+    flex: 1 1 100%;
+}
+
+@media (min-width: 640px) {
+    .arf-grid > .arf-col-2 {
+        flex: 1 1 calc(50% - var(--space-md));
+    }
+}
+
+@media (min-width: 960px) {
+    .arf-grid > .arf-col-3 {
+        flex: 1 1 calc(33.333% - var(--space-md));
+    }
+    .arf-grid > .arf-col-4 {
+        flex: 1 1 calc(25% - var(--space-md));
+    }
+}
+
+.card {
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+}
+
+/* ── HEADER: marca minimalista ────────────────────────────────────────────── */
+.site-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__brand {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.site-header__tagline {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+}
+
+/* ── HERO DE PRODUCTO: imagen a sangre + overlay de texto ────────────────── */
+.producto-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: var(--radius);
+    margin-top: var(--space-lg);
+}
+
+/* ── UTILIDADES DE MAQUETACIÓN (evitan estilos inline) ────────────────────── */
+.arf-grid--align-top {
+    align-items: flex-start;
+}
+
+.u-mt-sm {
+    margin-top: var(--space-sm);
+}
+
+.u-mt-lg {
+    margin-top: var(--space-lg);
+}
+
+.u-text-muted {
+    color: var(--color-text-muted);
+}
+
+.producto-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.producto-hero__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: var(--space-lg) var(--space-md);
+    background: linear-gradient(180deg, rgba(10, 10, 12, 0) 40%, rgba(10, 10, 12, 0.85) 100%);
+}
+
+.producto-hero__eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent-soft);
+    margin-bottom: var(--space-xs);
+}
+
+.producto-hero__title {
+    color: #f2f0eb;
+    margin: 0;
+    font-size: clamp(1.75rem, 4vw, 3rem);
+}
+
+.producto-hero__subtitle {
+    color: #e3d9c8;
+    margin-top: var(--space-xs);
+    font-weight: 300;
+}
+
+/* ── GALERÍA DE PRODUCTO: reutiliza .arf-grid, tarjetas con aspect-ratio ──── */
+.producto-galeria .arf-grid > * {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--radius);
+}
+
+.producto-galeria img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+.producto-galeria img:hover {
+    transform: scale(1.04);
+}
+
+/* ── FICHA TÉCNICA ─────────────────────────────────────────────────────────── */
+.producto-specs {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.producto-specs th,
+.producto-specs td {
+    text-align: left;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--color-border);
+    font-weight: 300;
+}
+
+.producto-specs th {
+    width: 45%;
+    color: var(--color-text-muted);
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+/* ── BADGE DE ESTATUS ──────────────────────────────────────────────────────── */
+.badge-estatus {
+    display: inline-block;
+    padding: 0.35em 0.9em;
+    border: 1px solid var(--color-accent);
+    border-radius: 999px;
+    color: var(--color-accent);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* ── CTA VIP ───────────────────────────────────────────────────────────────── */
+.btn-vip {
+    display: inline-block;
+    padding: 0.9em 2em;
+    background-color: var(--color-accent);
+    color: #0a0a0c;
+    border: none;
+    border-radius: var(--radius);
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-vip:hover {
+    background-color: var(--color-accent-soft);
+}
+
+/* ── PIE DE PÁGINA ─────────────────────────────────────────────────────────── */
+.site-footer {
+    padding: var(--space-lg) var(--space-md);
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--color-border);
+}
