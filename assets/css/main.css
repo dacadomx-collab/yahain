@@ -7,15 +7,17 @@
    ============================================================================= */
 
 :root {
-    /* Paleta Día — marfil / oro rosado (FODA specs: institucional, Bienes Raíces) */
-    --color-bg: #faf7f2;
-    --color-bg-alt: #f1ebe1;
-    --color-text: #2b2620;
-    --color-text-muted: #6b6255;
-    --color-primary: #2b2620;
-    --color-accent: #b08d57;
-    --color-accent-soft: #d9c4a3;
-    --color-border: #e3d9c8;
+    /* Paleta Noche — Ónix & Oro Satinado (predeterminada — assets/js/theme_init.js
+       aplica [data-theme] desde localStorage antes del primer paint). */
+    --color-bg: #0b0c0f;
+    --color-bg-alt: #111318;
+    --color-text: #f5f3ef;
+    --color-text-muted: #c9c6bf;
+    --color-primary: #f5f3ef;
+    --color-accent: #d4af37;
+    --color-accent-soft: #c5a059;
+    --color-border: #23262c;
+    --color-on-accent: #16130c;
 
     --font-serif: "Playfair Display", "Cormorant Garamond", Georgia, serif;
     --font-sans: "Montserrat", "Lato", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -29,32 +31,17 @@
     --container-max: 1400px;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        /* Paleta Noche — ónix / oro clásico (FODA specs: Aeronaves, Arte, Relojes) */
-        --color-bg: #0a0a0c;
-        --color-bg-alt: #15151a;
-        --color-text: #f2f0eb;
-        --color-text-muted: #b7b2a6;
-        --color-primary: #f2f0eb;
-        --color-accent: #c9a86a;
-        --color-accent-soft: #8a733f;
-        --color-border: #2a2a30;
-    }
-}
-
-/* ── MODO NOCHE FORZADO ────────────────────────────────────────────────────
-   Para vistas que deben transmitir misterio/exclusividad sin depender de la
-   preferencia del sistema del visitante (ej. portada de acceso VIP). */
-:root.tema-noche-forzado {
-    --color-bg: #0b0c0f;
-    --color-bg-alt: #16171c;
-    --color-text: #f2f0eb;
-    --color-text-muted: #b7b2a6;
-    --color-primary: #f2f0eb;
-    --color-accent: #c9a86a;
-    --color-accent-soft: #8a733f;
-    --color-border: #2a2a30;
+/* ── MODO DÍA — Marfil & Oro Rosado / Bronce ──────────────────────────────── */
+:root[data-theme="light"] {
+    --color-bg: #fbf9f5;
+    --color-bg-alt: #f4f0ea;
+    --color-text: #1a1a1a;
+    --color-text-muted: #5a564f;
+    --color-primary: #1a1a1a;
+    --color-accent: #b87333;
+    --color-accent-soft: #c48b71;
+    --color-border: #e6ddd1;
+    --color-on-accent: #fbf9f5;
 }
 
 * {
@@ -138,6 +125,13 @@ video {
     gap: var(--space-sm);
     padding: var(--space-md);
     border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__acciones {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm);
 }
 
 .site-header__brand {
@@ -242,6 +236,11 @@ video {
 }
 
 /* ── FICHA TÉCNICA ─────────────────────────────────────────────────────────── */
+.producto-specs-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
 .producto-specs {
     border-collapse: collapse;
     width: 100%;
@@ -281,7 +280,7 @@ video {
     display: inline-block;
     padding: 0.9em 2em;
     background-color: var(--color-accent);
-    color: #0a0a0c;
+    color: var(--color-on-accent);
     border: none;
     border-radius: var(--radius);
     font-family: var(--font-sans);
@@ -498,10 +497,90 @@ video {
 
 .btn-vip--secundario:hover {
     background-color: var(--color-accent);
-    color: #0a0a0c;
+    color: var(--color-on-accent);
 }
 
 .btn-vip:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+/* ── SWITCH DÍA / NOCHE ────────────────────────────────────────────────────── */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75em;
+    height: 2.75em;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    background-color: var(--color-bg-alt);
+    color: var(--color-accent);
+    cursor: pointer;
+    transition: border-color 0.25s ease, transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+    border-color: var(--color-accent);
+    transform: rotate(12deg);
+}
+
+.theme-toggle svg {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+.theme-toggle__icon-luna {
+    display: none;
+}
+
+:root[data-theme="light"] .theme-toggle__icon-sol {
+    display: none;
+}
+
+:root[data-theme="light"] .theme-toggle__icon-luna {
+    display: block;
+}
+
+/* ── BOTÓN FLOTANTE "VOLVER ARRIBA" ──────────────────────────────────────────
+   Efecto cristal (backdrop-filter). Aparece con fade-in tras 300px de scroll. */
+.btn-volver-arriba {
+    position: fixed;
+    right: var(--space-md);
+    bottom: var(--space-md);
+    width: 3em;
+    height: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-accent);
+    border-radius: 50%;
+    background-color: rgba(20, 18, 14, 0.55); /* fallback si color-mix() no está soportado */
+    background-color: color-mix(in srgb, var(--color-bg) 55%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--color-accent);
+    cursor: pointer;
+    z-index: 40;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(0.75em);
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+.btn-volver-arriba.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.btn-volver-arriba:hover {
+    background-color: var(--color-accent);
+    color: var(--color-on-accent);
+}
+
+.btn-volver-arriba svg {
+    width: 1.3em;
+    height: 1.3em;
 }

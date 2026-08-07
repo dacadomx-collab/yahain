@@ -91,12 +91,24 @@ $titulo = $producto !== null
 
     <link rel="preload" href="../assets/css/main.css" as="style">
     <link rel="stylesheet" href="../assets/css/main.css">
+    <script src="../assets/js/theme_init.js"></script>
 </head>
 <body>
 
     <header class="site-header">
         <a class="site-header__brand" href="../index.html">Yahain</a>
         <span class="site-header__tagline">Colección Privada · Aeronaves</span>
+        <div class="site-header__acciones">
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar tema">
+                <svg class="theme-toggle__icon-sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+                </svg>
+                <svg class="theme-toggle__icon-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path>
+                </svg>
+            </button>
+        </div>
     </header>
 
     <main class="container">
@@ -148,6 +160,7 @@ $titulo = $producto !== null
 
             <article class="card arf-col-2">
                 <h2>Ficha Técnica</h2>
+                <div class="producto-specs-wrap">
                 <table class="producto-specs">
                     <tbody>
                         <tr><th scope="row">Matrícula</th><td><?= htmlspecialchars((string) $producto['matricula'], ENT_QUOTES, 'UTF-8') ?></td></tr>
@@ -160,6 +173,7 @@ $titulo = $producto !== null
                         <tr><th scope="row">Dimensiones de cabina</th><td><?= (float) $producto['cabina_alto_m'] ?> m alto × <?= (float) $producto['cabina_ancho_m'] ?> m ancho</td></tr>
                     </tbody>
                 </table>
+                </div>
             </article>
 
         </section>
@@ -189,6 +203,13 @@ $titulo = $producto !== null
         Acceso exclusivo por invitación. Contacte a su broker privado para más información.
     </footer>
 
+    <button class="btn-volver-arriba" id="btn-volver-arriba" type="button" aria-label="Volver arriba">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 19V5M5 12l7-7 7 7"></path>
+        </svg>
+    </button>
+
+    <script src="../assets/js/main.js" defer></script>
     <?php if ($token !== null && $token !== '' && $mensajeTokenInvalido === null && $producto !== null): ?>
     <script src="../assets/js/token_acceso.js" defer></script>
     <?php endif; ?>

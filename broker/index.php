@@ -11,7 +11,7 @@ declare(strict_types=1);
 // =============================================================================
 ?>
 <!DOCTYPE html>
-<html lang="es" class="tema-noche-forzado">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,13 +25,25 @@ declare(strict_types=1);
 
     <link rel="preload" href="../assets/css/main.css" as="style">
     <link rel="stylesheet" href="../assets/css/main.css">
+    <script src="../assets/js/theme_init.js"></script>
 </head>
 <body>
 
     <header class="site-header">
         <a class="site-header__brand" href="../index.html">Yahain</a>
         <span class="site-header__tagline">Panel de Broker</span>
-        <button class="btn-vip btn-vip--secundario" id="btn-cerrar-sesion" type="button" hidden>Cerrar sesión</button>
+        <div class="site-header__acciones">
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar tema">
+                <svg class="theme-toggle__icon-sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+                </svg>
+                <svg class="theme-toggle__icon-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path>
+                </svg>
+            </button>
+            <button class="btn-vip btn-vip--secundario" id="btn-cerrar-sesion" type="button" hidden>Cerrar sesión</button>
+        </div>
     </header>
 
     <main class="container">
@@ -111,6 +123,13 @@ declare(strict_types=1);
         Panel interno — Colección Privada. Uso exclusivo de Brokers autorizados.
     </footer>
 
+    <button class="btn-volver-arriba" id="btn-volver-arriba" type="button" aria-label="Volver arriba">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 19V5M5 12l7-7 7 7"></path>
+        </svg>
+    </button>
+
+    <script src="../assets/js/main.js" defer></script>
     <script src="../assets/js/broker_panel.js" defer></script>
 </body>
 </html>
