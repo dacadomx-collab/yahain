@@ -11,23 +11,45 @@ declare(strict_types=1);
 // =============================================================================
 
 require_once __DIR__ . '/../api/conexion.php';
+require_once __DIR__ . '/../helpers/token_validator.php';
 
-$slug = $_GET['slug'] ?? 'agusta-a109-k2';
+$slug  = $_GET['slug'] ?? 'agusta-a109-k2';
+$token = isset($_GET['token']) ? trim((string) $_GET['token']) : null;
 
 $producto = null;
 $errorConexion = false;
+$mensajeTokenInvalido = null;
+
+$MENSAJES_TOKEN = [
+    'no_encontrado'      => 'Este enlace privado no existe.',
+    'inactivo'            => 'Este enlace privado ha sido revocado por su broker.',
+    'expirado_tiempo'      => 'Este enlace privado ha expirado. Por favor contacte a su broker asignado para solicitar un nuevo acceso.',
+    'expirado_aperturas'   => 'Este enlace privado alcanzó su límite de accesos. Por favor contacte a su broker asignado para solicitar un nuevo acceso.',
+];
 
 try {
     $database = new Database();
     $pdo      = $database->getConnection();
 
-    $stmt = $pdo->prepare(
-        'SELECT * FROM aeronaves
-         WHERE slug = :slug AND estatus != \'oculto\' AND deleted_at IS NULL
-         LIMIT 1'
-    );
-    $stmt->execute(['slug' => $slug]);
-    $producto = $stmt->fetch() ?: null;
+    // Chequeo previo (sin efectos secundarios) — el consumo real (fingerprint,
+    // contador, activity_logs) ocurre vía assets/js/token_acceso.js después
+    // de que el navegador calcula el fingerprint del dispositivo.
+    if ($token !== null && $token !== '') {
+        $inspeccion = inspeccionarTokenAcceso($pdo, $token);
+        if (!$inspeccion['valid']) {
+            $mensajeTokenInvalido = $MENSAJES_TOKEN[$inspeccion['reason']] ?? 'Enlace privado inválido.';
+        }
+    }
+
+    if ($mensajeTokenInvalido === null) {
+        $stmt = $pdo->prepare(
+            'SELECT * FROM aeronaves
+             WHERE slug = :slug AND estatus != \'oculto\' AND deleted_at IS NULL
+             LIMIT 1'
+        );
+        $stmt->execute(['slug' => $slug]);
+        $producto = $stmt->fetch() ?: null;
+    }
 } catch (\Throwable $e) {
     error_log('[' . date('Y-m-d H:i:s') . '] [catalogo/aeronaves.php] ' . $e->getMessage());
     $errorConexion = true;
@@ -86,6 +108,13 @@ $titulo = $producto !== null
             <p class="u-text-muted">Estamos actualizando esta sección de la Colección Privada. Por favor contacte a su broker privado o vuelva a intentarlo en unos minutos.</p>
         </section>
 
+        <?php elseif ($mensajeTokenInvalido !== null): ?>
+
+        <section class="card u-mt-lg">
+            <h1>Acceso no disponible</h1>
+            <p class="u-text-muted"><?= htmlspecialchars($mensajeTokenInvalido, ENT_QUOTES, 'UTF-8') ?></p>
+        </section>
+
         <?php elseif ($producto === null): ?>
 
         <section class="card u-mt-lg">
@@ -94,6 +123,8 @@ $titulo = $producto !== null
         </section>
 
         <?php else: ?>
+
+        <div id="contenido-vip">
 
         <section class="producto-hero">
             <img src="<?= htmlspecialchars($producto['imagen_portada'], ENT_QUOTES, 'UTF-8') ?>"
@@ -148,6 +179,8 @@ $titulo = $producto !== null
         </section>
         <?php endif; ?>
 
+        </div><!-- /#contenido-vip -->
+
         <?php endif; ?>
 
     </main>
@@ -155,6 +188,10 @@ $titulo = $producto !== null
     <footer class="site-footer" id="contacto">
         Acceso exclusivo por invitación. Contacte a su broker privado para más información.
     </footer>
+
+    <?php if ($token !== null && $token !== '' && $mensajeTokenInvalido === null && $producto !== null): ?>
+    <script src="../assets/js/token_acceso.js" defer></script>
+    <?php endif; ?>
 
 </body>
 </html>

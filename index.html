@@ -26,9 +26,10 @@
             <p class="acceso-vip__subtitle">Una selección privada reservada para quienes ya pertenecen. Ingrese su clave temporal o utilice el enlace mágico enviado por su broker.</p>
         </div>
 
-        <form class="form-acceso" action="#" method="post" autocomplete="off">
-            <input class="form-acceso__input" type="text" name="pin" placeholder="Clave de acceso temporal" maxlength="12" required>
+        <form class="form-acceso" id="form-acceso-vip" action="#" method="post" autocomplete="off">
+            <input class="form-acceso__input" type="text" name="token" id="input-token-vip" placeholder="Clave o token de acceso" maxlength="64" required>
             <button class="btn-vip form-acceso__submit" type="submit">Ingresar a la Selección VIP</button>
+            <p class="form-acceso__mensaje u-text-muted" id="mensaje-acceso-vip" role="status"></p>
         </form>
 
         <nav class="categorias-vip" aria-label="Categorías de la Colección Privada">
@@ -47,5 +48,6 @@
         Acceso restringido. Si no cuenta con una invitación, contacte a su broker privado.
     </footer>
 
+    <script src="assets/js/acceso_login.js" defer></script>
 </body>
 </html>
