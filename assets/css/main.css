@@ -43,6 +43,20 @@
     }
 }
 
+/* ── MODO NOCHE FORZADO ────────────────────────────────────────────────────
+   Para vistas que deben transmitir misterio/exclusividad sin depender de la
+   preferencia del sistema del visitante (ej. portada de acceso VIP). */
+:root.tema-noche-forzado {
+    --color-bg: #0b0c0f;
+    --color-bg-alt: #16171c;
+    --color-text: #f2f0eb;
+    --color-text-muted: #b7b2a6;
+    --color-primary: #f2f0eb;
+    --color-accent: #c9a86a;
+    --color-accent-soft: #8a733f;
+    --color-border: #2a2a30;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -285,4 +299,110 @@ video {
     color: var(--color-text-muted);
     font-size: 0.8rem;
     border-top: 1px solid var(--color-border);
+}
+
+/* ── PORTADA VIP (index) ───────────────────────────────────────────────────── */
+.acceso-vip {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-lg) var(--space-md);
+    gap: var(--space-lg);
+}
+
+.acceso-vip__logo {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+}
+
+.acceso-vip__eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+}
+
+.acceso-vip__title {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    margin: 0;
+}
+
+.acceso-vip__subtitle {
+    max-width: 40ch;
+    color: var(--color-text-muted);
+    font-weight: 300;
+}
+
+/* ── FORMULARIO DE ACCESO (PIN / enlace mágico) ───────────────────────────── */
+.form-acceso {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    width: 100%;
+    max-width: 420px;
+}
+
+.form-acceso__input {
+    flex: 1 1 100%;
+    max-width: 100%;
+    padding: 0.9em 1.1em;
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.form-acceso__input::placeholder {
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+    text-transform: none;
+}
+
+.form-acceso__input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+}
+
+.form-acceso__submit {
+    flex: 1 1 100%;
+}
+
+/* ── CHIPS DE CATEGORÍAS (accesos secundarios a la Selección VIP) ─────────── */
+.categorias-vip {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    max-width: var(--container-max);
+}
+
+.categorias-vip__chip {
+    padding: 0.6em 1.4em;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.categorias-vip__chip:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+.categorias-vip__chip[aria-disabled="true"] {
+    pointer-events: none;
+    opacity: 0.4;
 }

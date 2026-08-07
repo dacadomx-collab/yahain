@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" class="tema-noche-forzado">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Privado · Catálogo Exclusivo</title>
+    <meta name="description" content="Plataforma de acceso exclusivo por invitación. Colección Privada para clientes VIP.">
+    <link rel="icon" href="favicon.ico">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="preload" href="assets/css/main.css" as="style">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+    <main class="acceso-vip">
+
+        <img class="acceso-vip__logo" src="assets/img/logo.svg" alt="Colección Privada" loading="eager" width="220" height="64">
+
+        <div>
+            <p class="acceso-vip__eyebrow">Acceso exclusivo por invitación</p>
+            <h1 class="acceso-vip__title">Catálogo Exclusivo</h1>
+            <p class="acceso-vip__subtitle">Una selección privada reservada para quienes ya pertenecen. Ingrese su clave temporal o utilice el enlace mágico enviado por su broker.</p>
+        </div>
+
+        <form class="form-acceso" action="#" method="post" autocomplete="off">
+            <input class="form-acceso__input" type="text" name="pin" placeholder="Clave de acceso temporal" maxlength="12" required>
+            <button class="btn-vip form-acceso__submit" type="submit">Ingresar a la Selección VIP</button>
+        </form>
+
+        <nav class="categorias-vip" aria-label="Categorías de la Colección Privada">
+            <a class="categorias-vip__chip" href="catalogo/aeronaves.php">Aeronaves</a>
+            <span class="categorias-vip__chip" aria-disabled="true">Relojes</span>
+            <span class="categorias-vip__chip" aria-disabled="true">Bienes Inmuebles</span>
+            <span class="categorias-vip__chip" aria-disabled="true">Arte</span>
+            <span class="categorias-vip__chip" aria-disabled="true">Subastas de Arte</span>
+            <span class="categorias-vip__chip" aria-disabled="true">Relaciones Públicas</span>
+            <span class="categorias-vip__chip" aria-disabled="true">Consejo Diplomático</span>
+        </nav>
+
+    </main>
+
+    <footer class="site-footer">
+        Acceso restringido. Si no cuenta con una invitación, contacte a su broker privado.
+    </footer>
+
+</body>
+</html>
