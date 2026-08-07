@@ -1,4 +1,4 @@
-// assets/js/main.js — Yahain: Switch Día/Noche + Botón "Volver Arriba"
+// assets/js/main.js — Switch Día/Noche + Botón "Volver Arriba" + Lightbox
 // Componentes compartidos por todas las vistas públicas (index.html,
 // catalogo/*.php, broker/index.php). No-op silencioso si el markup de un
 // componente no está presente en la página actual.
@@ -6,6 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     initThemeToggle();
     initBackToTop();
+    initLightbox();
 });
 
 // ── SWITCH DÍA / NOCHE ────────────────────────────────────────────────────────
@@ -53,5 +54,56 @@ function initBackToTop() {
 
     boton.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// ── LIGHTBOX DE GALERÍA (JS/CSS puro) ─────────────────────────────────────────
+function initLightbox() {
+    const imagenesClicables = document.querySelectorAll('.producto-hero img, .producto-galeria img');
+    if (imagenesClicables.length === 0) {
+        return;
+    }
+
+    const overlay = document.createElement('div');
+    overlay.className = 'lightbox';
+    overlay.innerHTML = `
+        <div class="lightbox__contenido">
+            <button class="lightbox__cerrar" type="button" aria-label="Cerrar">✕</button>
+            <img class="lightbox__imagen" src="" alt="">
+        </div>
+    `;
+    document.body.appendChild(overlay);
+
+    const imgLightbox = overlay.querySelector('.lightbox__imagen');
+    const btnCerrar    = overlay.querySelector('.lightbox__cerrar');
+
+    function abrir(src, alt) {
+        imgLightbox.src = src;
+        imgLightbox.alt = alt;
+        overlay.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function cerrar() {
+        overlay.classList.remove('is-open');
+        document.body.style.overflow = '';
+    }
+
+    imagenesClicables.forEach((img) => {
+        img.addEventListener('click', () => abrir(img.currentSrc || img.src, img.alt));
+    });
+
+    btnCerrar.addEventListener('click', cerrar);
+
+    overlay.addEventListener('click', (event) => {
+        if (event.target === overlay) {
+            cerrar();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && overlay.classList.contains('is-open')) {
+            cerrar();
+        }
     });
 }

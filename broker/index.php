@@ -30,7 +30,7 @@ declare(strict_types=1);
 <body>
 
     <header class="site-header">
-        <a class="site-header__brand" href="../index.html">Yahain</a>
+        <a class="site-header__brand" href="../index.html">Catálogo Exclusivo</a>
         <span class="site-header__tagline">Panel de Broker</span>
         <div class="site-header__acciones">
             <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar tema">

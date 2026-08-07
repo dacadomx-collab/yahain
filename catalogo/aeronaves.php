@@ -55,7 +55,11 @@ try {
     $errorConexion = true;
 }
 
-// ── Resolver galería por convención de carpetas ──────────────────────────────
+// ── Resolver rutas de imagen (BD guarda rutas raíz-relativas, ej.
+// "assets/img/..."; esta vista vive un nivel abajo en /catalogo/, así que
+// toda ruta de imagen necesita el prefijo "../" para resolver correctamente).
+$imagenPortadaWeb = $producto !== null ? '../' . ltrim((string) $producto['imagen_portada'], '/') : '';
+
 $galeria = [];
 if ($producto !== null) {
     $baseFs  = dirname(__DIR__) . '/assets/img/aeronaves/' . $slug;
@@ -96,7 +100,7 @@ $titulo = $producto !== null
 <body>
 
     <header class="site-header">
-        <a class="site-header__brand" href="../index.html">Yahain</a>
+        <a class="site-header__brand" href="../index.html">Catálogo Exclusivo</a>
         <span class="site-header__tagline">Colección Privada · Aeronaves</span>
         <div class="site-header__acciones">
             <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar tema">
@@ -139,7 +143,7 @@ $titulo = $producto !== null
         <div id="contenido-vip">
 
         <section class="producto-hero">
-            <img src="<?= htmlspecialchars($producto['imagen_portada'], ENT_QUOTES, 'UTF-8') ?>"
+            <img src="<?= htmlspecialchars($imagenPortadaWeb, ENT_QUOTES, 'UTF-8') ?>"
                  alt="<?= $titulo ?> — vista exterior lateral"
                  width="1600" height="900" loading="eager">
             <div class="producto-hero__overlay">
