@@ -54,7 +54,7 @@
         }
 
         const headers = { 'Content-Type': 'application/json' };
-        const adminToken = window.localStorage.getItem('yahain_admin_token');
+        const adminToken = window.localStorage.getItem('yahain_access_token');
         if (adminToken) {
             headers.Authorization = 'Bearer ' + adminToken;
         }
