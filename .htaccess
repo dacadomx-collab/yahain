@@ -1,7 +1,8 @@
 # =============================================================================
-# PROYECTO  : [NOMBRE_DEL_PROYECTO]
+# PROYECTO  : Yahain (Catálogo Exclusivo / Colección Privada)
 # ARCHIVO   : .htaccess (Raíz)
 # PROPÓSITO : Blindaje Nivel Militar — AXON_DCD Security Standard v2
+#             + Lista blanca estricta de ejecución PHP (Zero Trust)
 # =============================================================================
 
 # ── NIVEL 0: SEGURIDAD GLOBAL ─────────────────────────────────────────────────
@@ -31,7 +32,7 @@ ServerSignature Off
 </FilesMatch>
 
 # Archivos de configuración, secretos, pipelines y bases de datos
-<FilesMatch "(?i)\.(env|sql|log|bak|ini|yml|yaml|lock|phar|sh|bash)$">
+<FilesMatch "(?i)\.(env|sql|log|bak|ini|yml|yaml|lock|phar|sh|bash|htpasswd)$">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>
@@ -54,6 +55,22 @@ ServerSignature Off
 
 # Archivos de reconocimiento de servidor (WP-Hunter, info de versiones)
 <FilesMatch "^(phpinfo\.php|xmlrpc\.php|readme\.html|README\.md|CHANGELOG\.md|composer\.json|composer\.lock|package\.json|package-lock\.json)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# ── NIVEL 1.5: BLOQUEO DE LIBRERÍAS PHP INTERNAS (Zero Trust puntual) ───────
+# api/conexion.php, cors.php, jwt.php, auth_middleware.php son librerías de
+# uso interno (solo require_once) — nunca deben ejecutarse por HTTP directo.
+# Bloqueo por nombre explícito en vez de "<If> path-aware" — ese enfoque
+# resultó no ser portable entre Apache local (XAMPP) y el Apache real de
+# GreenGeeks (llegó a bloquear hasta index.html), así que se abandonó.
+<FilesMatch "^(conexion|cors|jwt|auth_middleware)\.php$">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>
@@ -100,6 +117,7 @@ ServerSignature Off
     RewriteRule (^|/)\.github(/|$)           - [F,L,NC]
     RewriteRule (^|/)\.claude(/|$)           - [F,L,NC]
     RewriteRule (^|/)knowledge(/|$)          - [F,L,NC]
+    RewriteRule (^|/)core(/|$)               - [F,L,NC]
     RewriteRule (^|/)database(/|$)           - [F,L,NC]
     RewriteRule (^|/)logs(/|$)               - [F,L,NC]
     RewriteRule (^|/)backups(/|$)            - [F,L,NC]
@@ -109,6 +127,7 @@ ServerSignature Off
     RewriteRule (^|/)scripts(/|$)            - [F,L,NC]
     RewriteRule (^|/)helpers(/|$)             - [F,L,NC]
     RewriteRule (^|/)validators(/|$)          - [F,L,NC]
+    RewriteRule (^|/)modulos(/|$)             - [F,L,NC]
 
     # ── NIVEL 4: RUTAS FÍSICAS (assets, api) pasan sin reescritura ────────────
     RewriteCond %{REQUEST_FILENAME} -f [OR]
