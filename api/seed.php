@@ -19,6 +19,18 @@ require_once __DIR__ . '/../helpers/asfl_logger.php';
 
 asfl_log('REQUEST', ['endpoint' => 'seed.php']);
 
+// ── Guardia de secreto compartido ────────────────────────────────────────────
+// Este endpoint crea usuarios y resetea tokens — jamás debe quedar abierto al
+// público, ni siquiera "temporalmente" detrás de un túnel. Exige ?secret=...
+// coincidiendo con SEED_SECRET en .env.
+$envSeed    = parse_ini_file(dirname(__DIR__) . '/.env', false, INI_SCANNER_RAW) ?: [];
+$seedSecret = (string) ($envSeed['SEED_SECRET'] ?? '');
+$secretDado = (string) ($_GET['secret'] ?? '');
+
+if ($seedSecret === '' || !hash_equals($seedSecret, $secretDado)) {
+    send_error('No autorizado.', 403);
+}
+
 try {
     $database = new Database();
     $pdo      = $database->getConnection();

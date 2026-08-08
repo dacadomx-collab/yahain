@@ -20,6 +20,15 @@ require_once __DIR__ . '/../helpers/asfl_logger.php';
 
 asfl_log('REQUEST', ['endpoint' => 'health_check.php']);
 
+// Mismo guardia de secreto compartido que api/seed.php — ver esa nota.
+$envSeed    = parse_ini_file(dirname(__DIR__) . '/.env', false, INI_SCANNER_RAW) ?: [];
+$seedSecret = (string) ($envSeed['SEED_SECRET'] ?? '');
+$secretDado = (string) ($_GET['secret'] ?? '');
+
+if ($seedSecret === '' || !hash_equals($seedSecret, $secretDado)) {
+    send_error('No autorizado.', 403);
+}
+
 $checks = [
     'filesystem' => checkFilesystem(),
     'database'   => checkDatabaseConnection(),
