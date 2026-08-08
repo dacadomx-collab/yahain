@@ -83,14 +83,24 @@ function consumirTokenAcceso(PDO $pdo, string $token, ?string $fingerprint, bool
     }
 
     // ── Device Binding por fingerprint ────────────────────────────────────────
-    if ($row['device_fingerprint'] === null) {
-        // Primer acceso: se vincula el dispositivo actual al token.
-        $stmt = $pdo->prepare('UPDATE tokens_acceso SET device_fingerprint = :fp WHERE id = :id');
-        $stmt->execute(['fp' => $fingerprint, 'id' => $idToken]);
-    } elseif (!hash_equals((string) $row['device_fingerprint'], (string) $fingerprint)) {
-        registrarActivityLog($pdo, $idToken, null, 'acceso_bloqueado_dispositivo_no_coincide');
+    // ⚠️ EXCEPCIÓN DE DEMO: tokens en esta lista NO se vinculan a un solo
+    // dispositivo — pensado exclusivamente para mostrar el catálogo a varias
+    // personas desde sus propios celulares en una demo controlada. NUNCA usar
+    // este patrón para un token real de Cliente VIP (rompe la garantía de
+    // "un enlace = un dispositivo" del documento de specs).
+    $TOKENS_DEMO_SIN_DEVICE_BINDING = ['VIP777'];
+    $saltarDeviceBinding = in_array((string) $row['token'], $TOKENS_DEMO_SIN_DEVICE_BINDING, true);
 
-        return ['valid' => false, 'reason' => 'dispositivo_no_coincide', 'catalogo_asignado' => null, 'nombre_cliente' => null];
+    if (!$saltarDeviceBinding) {
+        if ($row['device_fingerprint'] === null) {
+            // Primer acceso: se vincula el dispositivo actual al token.
+            $stmt = $pdo->prepare('UPDATE tokens_acceso SET device_fingerprint = :fp WHERE id = :id');
+            $stmt->execute(['fp' => $fingerprint, 'id' => $idToken]);
+        } elseif (!hash_equals((string) $row['device_fingerprint'], (string) $fingerprint)) {
+            registrarActivityLog($pdo, $idToken, null, 'acceso_bloqueado_dispositivo_no_coincide');
+
+            return ['valid' => false, 'reason' => 'dispositivo_no_coincide', 'catalogo_asignado' => null, 'nombre_cliente' => null];
+        }
     }
 
     // ── Consumir apertura + marcar expirado si llega al límite ──────────────
