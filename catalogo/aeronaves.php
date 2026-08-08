@@ -21,11 +21,18 @@ $errorConexion = false;
 $mensajeTokenInvalido = null;
 
 $MENSAJES_TOKEN = [
+    'sin_token'           => 'Acceso denegado. Esta colección requiere una invitación o enlace efímero activo.',
     'no_encontrado'      => 'Este enlace privado no existe.',
     'inactivo'            => 'Este enlace privado ha sido revocado por su broker.',
     'expirado_tiempo'      => 'Este enlace privado ha expirado. Por favor contacte a su broker asignado para solicitar un nuevo acceso.',
     'expirado_aperturas'   => 'Este enlace privado alcanzó su límite de accesos. Por favor contacte a su broker asignado para solicitar un nuevo acceso.',
 ];
+
+// Bloqueo Absoluto (Zero Access Sin Token): sin ?token= válido, ningún
+// producto se consulta ni se muestra — ni siquiera se toca la BD.
+if ($token === null || $token === '') {
+    $mensajeTokenInvalido = $MENSAJES_TOKEN['sin_token'];
+}
 
 try {
     $database = new Database();
@@ -34,7 +41,7 @@ try {
     // Chequeo previo (sin efectos secundarios) — el consumo real (fingerprint,
     // contador, activity_logs) ocurre vía assets/js/token_acceso.js después
     // de que el navegador calcula el fingerprint del dispositivo.
-    if ($token !== null && $token !== '') {
+    if ($mensajeTokenInvalido === null && $token !== null && $token !== '') {
         $inspeccion = inspeccionarTokenAcceso($pdo, $token);
         if (!$inspeccion['valid']) {
             $mensajeTokenInvalido = $MENSAJES_TOKEN[$inspeccion['reason']] ?? 'Enlace privado inválido.';

@@ -7,9 +7,8 @@ declare(strict_types=1);
 // Endpoint: POST /api/auth_login.php
 // Mandamiento #2: Seguridad Nivel Militar | Mandamiento #14: CORS ≠ Auth
 //
-// Schema esperado (definir en knowledge/02_CODEX_Y_SCHEMA_MAESTRO.md al
-// iniciar el proyecto real — NO se crea tabla aquí, Mandamiento #9):
-//   users (id INT PK, email VARCHAR UNIQUE, password_hash VARCHAR, role VARCHAR)
+// Schema real: tabla `usuarios` (ver knowledge/02_CODEX_Y_SCHEMA_MAESTRO.md y
+// knowledge/01_master_database_setup.sql) — roles: super_admin | admin | broker.
 // =============================================================================
 
 require_once __DIR__ . '/cors.php';
@@ -53,7 +52,7 @@ try {
     $database = new Database();
     $pdo      = $database->getConnection();
 
-    $stmt = $pdo->prepare('SELECT `id`, `email`, `password_hash`, `role` FROM `users` WHERE `email` = :email LIMIT 1');
+    $stmt = $pdo->prepare('SELECT `id`, `email`, `password_hash`, `role` FROM `usuarios` WHERE `email` = :email AND `deleted_at` IS NULL LIMIT 1');
     $stmt->execute([':email' => $email]);
     $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 

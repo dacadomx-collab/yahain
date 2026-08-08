@@ -72,6 +72,24 @@ try {
         $resultado['token_vip777'] = ['creado' => false, 'detalle' => "Ya existía (estatus: {$tokenExistente['estatus']})."];
     }
 
+    // ── ?reset=1: libera el device binding y reinicia el contador de VIP777 ────
+    // Útil en desarrollo cuando el token quedó vinculado al fingerprint de otro
+    // navegador/dispositivo de prueba. NUNCA usar esto contra un token real de
+    // producción — reabre el enlace a cualquier dispositivo.
+    if (($_GET['reset'] ?? '') === '1') {
+        $stmt = $pdo->prepare(
+            'UPDATE tokens_acceso
+             SET device_fingerprint = NULL, aperturas_actuales = 0, estatus = \'activo\'
+             WHERE token = :token'
+        );
+        $stmt->execute(['token' => 'VIP777']);
+
+        $resultado['token_vip777_reset'] = [
+            'reset' => true,
+            'detalle' => 'device_fingerprint limpiado y aperturas_actuales reiniciado a 0 para VIP777.',
+        ];
+    }
+
     $baseUrl = 'http://localhost/Yahain';
 
     asfl_log('RESPONSE', ['endpoint' => 'seed.php', 'resultado' => $resultado]);
