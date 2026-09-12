@@ -1,0 +1,134 @@
+[
+  {
+    "id": "YHN-701",
+    "titulo": "Reserva Litoral Cabo del Este",
+    "precio": 58000000,
+    "precioFormateado": "$58,000,000 USD",
+    "ubicacion": "Corredor de Cabo del Este, Baja California Sur",
+    "coordenadas": { "lat": 23.68, "lng": -109.56 },
+    "superficieM2": 700000,
+    "superficieAcres": 172.9,
+    "caracteristicas": [
+      "Amplio frente de playa dentro del corredor de Cabo del Este",
+      "Topografía natural en anfiteatro con vistas al Mar de Cortés",
+      "Potencial para desarrollo hotelero de baja densidad o comunidad privada",
+      "Acceso por camino costero"
+    ],
+    "descripcion": "Extensa reserva territorial sobre el litoral oriental de Baja California Sur, con topografía escalonada orientada al Golfo de California. Su escala permite considerar proyectos de hospitalidad de baja densidad o desarrollos residenciales privados integrados al paisaje natural.",
+    "imagenes": [
+      "../assets/img/terrenos/YHN-701/img_01.jpg",
+      "../assets/img/terrenos/YHN-701/img_02.jpg",
+      "../assets/img/terrenos/YHN-701/img_03.jpg"
+    ]
+  },
+  {
+    "id": "YHN-702",
+    "titulo": "Predio Náutico La Ribera",
+    "precio": 17500000,
+    "precioFormateado": "$17,500,000 USD",
+    "ubicacion": "La Ribera, Baja California Sur",
+    "coordenadas": { "lat": 23.59, "lng": -109.58 },
+    "superficieM2": 170000,
+    "superficieAcres": 42.0,
+    "caracteristicas": [
+      "Cercanía al polo de desarrollo náutico y campos de golf de La Ribera",
+      "Topografía mayormente plana de alta eficiencia constructiva",
+      "Zona con crecimiento activo de infraestructura turística",
+      "Conectividad vial pavimentada"
+    ],
+    "descripcion": "Predio estratégico dentro del polo de desarrollo náutico de La Ribera, una de las zonas de mayor crecimiento turístico del corredor este. Su topografía plana favorece un master plan residencial, comercial o de hospitalidad con acceso expedito a la costa.",
+    "imagenes": [
+      "../assets/img/terrenos/YHN-702/img_01.jpg",
+      "../assets/img/terrenos/YHN-702/img_02.jpg",
+      "../assets/img/terrenos/YHN-702/img_03.jpg"
+    ]
+  },
+  {
+    "id": "YHN-703",
+    "titulo": "Mirador Costero Nine Palms",
+    "precio": 11900000,
+    "precioFormateado": "$11,900,000 USD",
+    "ubicacion": "Cabo del Este, Baja California Sur",
+    "coordenadas": { "lat": 23.37, "lng": -109.43 },
+    "superficieM2": 55000,
+    "superficieAcres": 13.6,
+    "caracteristicas": [
+      "Posición elevada sobre reconocidas rompientes de surf del Cabo del Este",
+      "Acceso por el camino costero regional",
+      "Terrazas naturales con vistas despejadas al amanecer",
+      "Idóneo para eco-resort boutique o complejo de villas"
+    ],
+    "descripcion": "Predio situado sobre un mirador costero elevado del Cabo del Este, con vistas ininterrumpidas hacia el Mar de Cortés meridional. Su escala intermedia y privacidad territorial lo hacen apto para un proyecto boutique de baja densidad.",
+    "imagenes": [
+      "../assets/img/terrenos/YHN-703/img_01.jpg",
+      "../assets/img/terrenos/YHN-703/img_02.jpg",
+      "../assets/img/terrenos/YHN-703/img_03.jpg"
+    ]
+  },
+  {
+    "id": "YHN-704",
+    "titulo": "Terrazas San José del Cabo",
+    "precio": 10800000,
+    "precioFormateado": "$10,800,000 USD",
+    "ubicacion": "San José del Cabo, Baja California Sur",
+    "coordenadas": { "lat": 23.03, "lng": -109.71 },
+    "superficieM2": 50000,
+    "superficieAcres": 12.4,
+    "caracteristicas": [
+      "Ubicación intraurbana en zona residencial consolidada",
+      "Vista panorámica sobre la bahía de San José del Cabo",
+      "Uso de suelo compatible con densidad media y alta",
+      "Servicios municipales disponibles a pie de predio"
+    ],
+    "descripcion": "Parcela consolidada dentro del corredor residencial de San José del Cabo, con pendiente controlada que favorece un desarrollo vertical escalonado donde la mayoría de las unidades conservarían vista al mar.",
+    "imagenes": [
+      "../assets/img/terrenos/YHN-704/img_01.jpg",
+      "../assets/img/terrenos/YHN-704/img_02.jpg",
+      "../assets/img/terrenos/YHN-704/img_03.jpg"
+    ]
+  },
+  {
+    "id": "YHN-705",
+    "titulo": "Refugio Costero Cabo Pulmo",
+    "precio": 7200000,
+    "precioFormateado": "$7,200,000 USD",
+    "ubicacion": "Colindante al Parque Nacional Cabo Pulmo, Baja California Sur",
+    "coordenadas": { "lat": 23.49, "lng": -109.47 },
+    "superficieM2": 103000,
+    "superficieAcres": 25.5,
+    "caracteristicas": [
+      "Playa de aguas calmas colindante con el Parque Nacional Cabo Pulmo",
+      "Topografía mixta con sistemas de dunas y terrazas firmes",
+      "Entorno de baja densidad y alto valor ambiental",
+      "Vocación para hospitalidad regenerativa de bajo impacto"
+    ],
+    "descripcion": "Reserva costera junto al área marina protegida de Cabo Pulmo, con frente de playa de aguas calmas. Su cercanía a la zona protegida le da valor singular para proyectos de hospitalidad de bajo impacto ambiental.",
+    "imagenes": [
+      "../assets/img/terrenos/YHN-705/img_01.jpg",
+      "../assets/img/terrenos/YHN-705/img_02.jpg",
+      "../assets/img/terrenos/YHN-705/img_03.jpg"
+    ]
+  },
+  {
+    "id": "YHN-706",
+    "titulo": "Macrolote Punta Pescadero",
+    "precio": 6500000,
+    "precioFormateado": "$6,500,000 USD",
+    "ubicacion": "Corredor norte hacia Los Barriles y Punta Pescadero, Baja California Sur",
+    "coordenadas": { "lat": 23.75, "lng": -109.68 },
+    "superficieM2": 750000,
+    "superficieAcres": 185.3,
+    "caracteristicas": [
+      "Extenso litoral en el corredor norte del Cabo del Este",
+      "Doble conectividad vial (carretera pavimentada y vía costera)",
+      "Topografía transicional apta para lotificación",
+      "Cercanía a Los Barriles"
+    ],
+    "descripcion": "Macrolote de escala territorial mayor en el corredor norte hacia Punta Pescadero, con amplio frente marítimo y doble acceso vial. Ofrece condiciones favorables para un proyecto de lotificación residencial de gran escala.",
+    "imagenes": [
+      "../assets/img/terrenos/YHN-706/img_01.jpg",
+      "../assets/img/terrenos/YHN-706/img_02.jpg",
+      "../assets/img/terrenos/YHN-706/img_03.jpg"
+    ]
+  }
+]

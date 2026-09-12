@@ -58,9 +58,13 @@ function initBackToTop() {
 }
 
 // ── LIGHTBOX DE GALERÍA (JS/CSS puro) ─────────────────────────────────────────
+// Delegación de eventos en document: cubre tanto imágenes ya presentes al
+// cargar (vistas PHP renderizadas en servidor) como imágenes inyectadas
+// después vía fetch/JS (ej. terrenos/js/ficha.js).
+const SELECTOR_IMAGENES_LIGHTBOX = '.producto-hero img, .producto-galeria img';
+
 function initLightbox() {
-    const imagenesClicables = document.querySelectorAll('.producto-hero img, .producto-galeria img');
-    if (imagenesClicables.length === 0) {
+    if (document.querySelector('.lightbox')) {
         return;
     }
 
@@ -89,8 +93,11 @@ function initLightbox() {
         document.body.style.overflow = '';
     }
 
-    imagenesClicables.forEach((img) => {
-        img.addEventListener('click', () => abrir(img.currentSrc || img.src, img.alt));
+    document.addEventListener('click', (event) => {
+        const img = event.target.closest(SELECTOR_IMAGENES_LIGHTBOX);
+        if (img) {
+            abrir(img.currentSrc || img.src, img.alt);
+        }
     });
 
     btnCerrar.addEventListener('click', cerrar);
